@@ -42,7 +42,6 @@ class FlutterDyscanPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
                 result.error("not_initialized", "DyScan is not initialized", null)
             } else {
                 DyScan.init(context, apiKey)
-                result.success(true)
             }
         } else if (call.method == "startCardScan") {
             if (DyScan.isDeviceSupported(context)) {

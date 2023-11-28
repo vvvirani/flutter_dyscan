@@ -20,7 +20,6 @@ public class FlutterDyscanPlugin: NSObject, FlutterPlugin, DyScanViewControllerD
             if let arguments = call.arguments as? Dictionary<String, Any>{
                 if let apiKey = arguments["apiKey"] as? String, !apiKey.isEmpty {
                     DyScanApp.configure(apiKey: apiKey)
-                    result(true)
                 } else {
                     result(FlutterError(code: "not_initialized", message: "DyScan is not initialized", details: nil))
                 }

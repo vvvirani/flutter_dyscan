@@ -10,12 +10,15 @@ class MethodChannelFlutterDyScan extends FlutterDyScanPlatform {
       const MethodChannel('vvvirani/flutter_dyscan');
 
   @override
-  Future<bool> init(String apiKey) async {
-    bool? result = await _methodChannel.invokeMethod<bool?>(
-      'init',
-      <String, dynamic>{'apiKey': apiKey},
-    );
-    return result ?? false;
+  Future<void> init(String apiKey) async {
+    try {
+      return await _methodChannel.invokeMethod(
+        'init',
+        <String, dynamic>{'apiKey': apiKey},
+      );
+    } catch (_) {
+      throw DyScanNotInitialzedException();
+    }
   }
 
   @override

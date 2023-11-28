@@ -1,70 +1,32 @@
+import 'package:dyscan_example/constants/app_colors.dart';
+import 'package:dyscan_example/views/card_scan_page.dart';
 import 'package:flutter/material.dart';
-
-import 'package:flutter_dyscan/flutter_dyscan.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: CardScanScreen());
-  }
-}
-
-class CardScanScreen extends StatefulWidget {
-  const CardScanScreen({super.key});
-
-  @override
-  State<CardScanScreen> createState() => _CardScanScreenState();
-}
-
-class _CardScanScreenState extends State<CardScanScreen> {
-  final FlutterDyScan _dyScan = FlutterDyScan.instance;
-
-  @override
-  void initState() {
-    super.initState();
-    _dyScan.init(''); // TODO Enter your DyScan apikey
-  }
-
-  void _showSnackBar(String message) {
-    SnackBar snackBar = SnackBar(content: Text(message));
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Plugin Example App')),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () async {
-            try {
-              CardScanResult result = await _dyScan.startCardScan(
-                uiSettings: const DyScanUiSettings(
-                  showDynetiLogo: false,
-                  showRotateButton: true,
-                  androidUiSettings: AndroidUiSettings(
-                    showCardOverlay: true,
-                    showResultOverlay: true,
-                  ),
-                ),
-              );
-
-              _showSnackBar(result.toMap().toString());
-            } on DyScanNotInitialzedException catch (e) {
-              _showSnackBar(e.message);
-            } on CardScanResultException catch (e) {
-              _showSnackBar(e.message);
-            }
-          },
-          child: const Text('Scan Card'),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'DyScan Example',
+      theme: ThemeData(
+        primaryColor: AppColors.primaryColor,
+        appBarTheme: const AppBarTheme(
+          elevation: 0,
+          backgroundColor: AppColors.primaryColor,
+          systemOverlayStyle: SystemUiOverlayStyle.light,
+        ),
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+          secondary: AppColors.primaryColor,
         ),
       ),
+      home: const CardScanScreen(),
     );
   }
 }

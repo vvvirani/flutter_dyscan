@@ -24,7 +24,7 @@ abstract class FlutterDyScanPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future<bool> init(String apiKey);
+  Future<void> init(String apiKey);
 
   Future<CardScanResult> startCardScan({DyScanUiSettings? uiSettings});
 }
