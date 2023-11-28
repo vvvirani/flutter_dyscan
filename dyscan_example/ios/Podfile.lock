@@ -1,0 +1,31 @@
+PODS:
+  - DyScan (1.2.5):
+    - DyScan/Universal (= 1.2.5)
+  - DyScan/Universal (1.2.5)
+  - Flutter (1.0.0)
+  - flutter_dyscan (0.0.1):
+    - DyScan
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - flutter_dyscan (from `.symlinks/plugins/flutter_dyscan/ios`)
+
+SPEC REPOS:
+  "https://dyscan@github.com/dyneti/dyscan-podspec.git":
+    - DyScan
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  flutter_dyscan:
+    :path: ".symlinks/plugins/flutter_dyscan/ios"
+
+SPEC CHECKSUMS:
+  DyScan: 86e7d730d48cb8255d0679e0194d9220b8cc2225
+  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  flutter_dyscan: 0ecbde2b2d065095b90787dca8415fc8022cb070
+
+PODFILE CHECKSUM: 241c77799e6208d2dd10d28e20914155a1b2f46d
+
+COCOAPODS: 1.14.3

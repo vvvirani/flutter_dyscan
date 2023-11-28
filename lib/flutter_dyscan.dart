@@ -1,9 +1,9 @@
 import 'package:flutter_dyscan/flutter_dyscan_platform_interface.dart';
-import 'package:flutter_dyscan/src/card_scan_result.dart';
-import 'package:flutter_dyscan/src/excpetions.dart';
+import 'package:flutter_dyscan/src/exceptions/excpetions.dart';
+import 'package:flutter_dyscan/src/models/models.dart';
 
-export 'src/card_scan_result.dart';
-export 'src/excpetions.dart' hide DyScanException;
+export 'src/models/models.dart';
+export 'src/exceptions/excpetions.dart' hide DyScanException;
 
 class FlutterDyScan {
   FlutterDyScan._();
@@ -19,9 +19,9 @@ class FlutterDyScan {
     return _isInitialize;
   }
 
-  Future<CardScanResult> startCardScan() async {
+  Future<CardScanResult> startCardScan({DyScanUiSettings? uiSettings}) async {
     if (_isInitialize) {
-      return _platform.startCardScan();
+      return _platform.startCardScan(uiSettings: uiSettings);
     } else {
       throw DyScanNotInitialzedException();
     }

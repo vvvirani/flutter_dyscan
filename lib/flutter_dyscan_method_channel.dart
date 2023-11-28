@@ -19,9 +19,16 @@ class MethodChannelFlutterDyScan extends FlutterDyScanPlatform {
   }
 
   @override
-  Future<CardScanResult> startCardScan() async {
+  Future<CardScanResult> startCardScan({DyScanUiSettings? uiSettings}) async {
     try {
-      return await _methodChannel.invokeMethod('startCardScan').then((result) {
+      uiSettings =
+          uiSettings ?? const DyScanUiSettings(iOSUiSettings: IOSUiSettings());
+
+      Map<String, dynamic> arguments = uiSettings.asMap();
+
+      return await _methodChannel
+          .invokeMethod('startCardScan', arguments)
+          .then((result) {
         return CardScanResult.fromMap(Map<String, dynamic>.from(result));
       });
     } on PlatformException catch (e) {

@@ -1,4 +1,4 @@
-import 'package:flutter_dyscan/src/card_scan_result.dart';
+import 'package:flutter_dyscan/src/models/models.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'flutter_dyscan_method_channel.dart';
@@ -26,5 +26,5 @@ abstract class FlutterDyScanPlatform extends PlatformInterface {
 
   Future<bool> init(String apiKey);
 
-  Future<CardScanResult> startCardScan();
+  Future<CardScanResult> startCardScan({DyScanUiSettings? uiSettings});
 }

@@ -46,5 +46,5 @@ android {
 }
 
 dependencies {
-    implementation 'com.dyneti.android.dyscan:dyscan:1.4.0'
+    implementation 'com.dyneti.android.dyscan:dyscan:1.5.1'
 }
