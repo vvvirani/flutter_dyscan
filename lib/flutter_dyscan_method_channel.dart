@@ -1,6 +1,5 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_dyscan/flutter_dyscan.dart';
-import 'package:flutter_dyscan/src/exceptions/excpetions.dart';
 
 import 'flutter_dyscan_platform_interface.dart';
 
