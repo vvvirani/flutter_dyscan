@@ -2,7 +2,7 @@ import 'package:flutter_dyscan/flutter_dyscan_platform_interface.dart';
 import 'package:flutter_dyscan/src/models/models.dart';
 
 export 'src/models/models.dart';
-export 'src/exceptions/excpetions.dart' hide DyScanException;
+export 'src/exceptions/excpetions.dart';
 
 class FlutterDyScan {
   FlutterDyScan._();

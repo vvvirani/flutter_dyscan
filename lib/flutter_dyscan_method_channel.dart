@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_dyscan/flutter_dyscan.dart';
+import 'package:flutter_dyscan/src/exceptions/excpetions.dart';
 
 import 'flutter_dyscan_platform_interface.dart';
 
@@ -16,16 +17,15 @@ class MethodChannelFlutterDyScan extends FlutterDyScanPlatform {
         'init',
         <String, dynamic>{'apiKey': apiKey},
       );
-    } catch (_) {
-      throw DyScanNotInitialzedException();
+    } on PlatformException catch (e) {
+      throw DyScanException.fromPlatformException(e);
     }
   }
 
   @override
   Future<CardScanResult> startCardScan({DyScanUiSettings? uiSettings}) async {
     try {
-      uiSettings =
-          uiSettings ?? const DyScanUiSettings(iOSUiSettings: IOSUiSettings());
+      uiSettings = uiSettings ?? DyScanUiSettings.defaultUiSettings;
 
       Map<String, dynamic> arguments = uiSettings.asMap();
 
@@ -35,9 +35,7 @@ class MethodChannelFlutterDyScan extends FlutterDyScanPlatform {
         return CardScanResult.fromMap(Map<String, dynamic>.from(result));
       });
     } on PlatformException catch (e) {
-      throw CardScanResultException(code: e.code, message: e.message ?? 'null');
-    } catch (e) {
-      throw CardScanResultException(code: 'failed', message: e.toString());
+      throw DyScanException.fromPlatformException(e);
     }
   }
 }

@@ -23,8 +23,8 @@ class _CardScanScreenState extends State<CardScanScreen> {
   Future<void> _initDyScan() async {
     try {
       await _dyScan.init(Constants.dyScanApiKey);
-    } on DyScanNotInitialzedException catch (e) {
-      _showSnackBar(e.message);
+    } on DyScanException catch (e) {
+      _showSnackBar('${e.type}-${e.message}');
     }
   }
 
@@ -45,8 +45,8 @@ class _CardScanScreenState extends State<CardScanScreen> {
       setState(() {
         _scanResult = result;
       });
-    } on CardScanResultException catch (e) {
-      _showSnackBar(e.message);
+    } on DyScanException catch (e) {
+      _showSnackBar('${e.type}-${e.message}');
     }
   }
 

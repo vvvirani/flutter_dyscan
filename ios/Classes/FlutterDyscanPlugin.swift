@@ -21,7 +21,7 @@ public class FlutterDyscanPlugin: NSObject, FlutterPlugin, DyScanViewControllerD
                 if let apiKey = arguments["apiKey"] as? String, !apiKey.isEmpty {
                     DyScanApp.configure(apiKey: apiKey)
                 } else {
-                    result(FlutterError(code: "not_initialized", message: "DyScan is not initialized", details: nil))
+                    result(FlutterError(code: "notInitialized", message: "DyScan is not initialized", details: nil))
                 }
                 
             }
@@ -158,16 +158,16 @@ public class FlutterDyscanPlugin: NSObject, FlutterPlugin, DyScanViewControllerD
         if let result = self.result {
             switch reason {
             case .AuthError:
-                result(FlutterError(code: "auth_error", message: "Invalid api key", details: nil))
+                result(FlutterError(code: "authError", message: "Invalid api key", details: nil))
                 break
             case .CameraError:
-                result(FlutterError(code: "camera_error", message: "Camera not found", details: nil))
+                result(FlutterError(code: "cameraError", message: "Camera not found", details: nil))
                 break
             case .NoPermissions:
-                result(FlutterError(code: "no_permissions", message: "Missing camera permission", details: nil))
+                result(FlutterError(code: "noPermissions", message: "Missing camera permission", details: nil))
                 break
             case .UserCancelled:
-                result(FlutterError(code: "user_cancelled", message: "Cancelled by user", details: nil))
+                result(FlutterError(code: "userCancelled", message: "Cancelled by user", details: nil))
                 break
             default: break
             }

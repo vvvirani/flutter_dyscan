@@ -39,7 +39,7 @@ class FlutterDyscanPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
         if (call.method == "init") {
             val apiKey = call.argument<String?>("apiKey")
             if (apiKey.isNullOrEmpty()) {
-                result.error("not_initialized", "DyScan is not initialized", null)
+                result.error("notInitialized", "DyScan is not initialized", null)
             } else {
                 DyScan.init(context, apiKey)
             }
@@ -201,7 +201,7 @@ class FlutterDyscanPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
                 startActivityForResult(binding.activity, intent, scanRequestCode, null)
 
             } else {
-                result.error("not_supported", "DyScan is not supported for this device", null)
+                result.error("notSupported", "DyScan is not supported for this device", null)
             }
         } else {
             result.notImplemented()
@@ -243,24 +243,29 @@ class FlutterDyscanPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
 
         if (requestCode == scanRequestCode) {
-            if (data != null && data.hasExtra(DyScanActivity.EXTRA_SCAN_RESULT)) {
-                val scanResult: CreditCard? =
-                    data.getParcelableExtra(DyScanActivity.EXTRA_SCAN_RESULT)
-                return if (scanResult != null) {
-                    val resultMap: MutableMap<String, Any?> = HashMap()
-                    resultMap["cardNumber"] = scanResult.cardNumber
-                    resultMap["expiryMonth"] = scanResult.expiryMonth
-                    resultMap["expiryYear"] = scanResult.expiryYear
-                    resultMap["isFraud"] = scanResult.isFraud
-                    result.success(resultMap)
-                    true
-                } else {
-                    result.error("failed", "Card scan result is not found", null)
-                    false
+            if (resultCode == DyScanActivity.RESULT_OK) {
+                if (data != null && data.hasExtra(DyScanActivity.EXTRA_SCAN_RESULT)) {
+                    val scanResult: CreditCard? =
+                        data.getParcelableExtra(DyScanActivity.EXTRA_SCAN_RESULT)
+                    if (scanResult != null) {
+                        val resultMap: MutableMap<String, Any?> = HashMap()
+                        resultMap["cardNumber"] = scanResult.cardNumber
+                        resultMap["expiryMonth"] = scanResult.expiryMonth
+                        resultMap["expiryYear"] = scanResult.expiryYear
+                        resultMap["isFraud"] = scanResult.isFraud
+                        result.success(resultMap)
+                    }
                 }
+            } else if (resultCode == DyScanActivity.RESULT_AUTH_FAILURE) {
+                result.error("authError", "Invalid api key & authentication", null)
+            } else if (resultCode == DyScanActivity.RESULT_CAMERA_ERROR) {
+                result.error("cameraError", "Camera not found", null)
+            } else if (resultCode == DyScanActivity.RESULT_PERMISSIONS_NOT_GRANTED) {
+                result.error("noPermissions", "Missing camera permission", null)
+            } else if (resultCode == DyScanActivity.RESULT_CANCELED) {
+                result.error("userCancelled", "Cancelled by user", null)
             }
         }
-        result.error("cancelled", "Cancelled by user", null)
-        return false
+        return true
     }
 }

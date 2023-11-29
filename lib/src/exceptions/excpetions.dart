@@ -1,17 +1,38 @@
-abstract class DyScanException implements Exception {
-  final String code;
-  final String message;
+import 'package:flutter/services.dart';
 
-  DyScanException(this.code, this.message);
+class DyScanException implements Exception {
+  final DyScanExceptionType type;
+  final String? message;
+  final Object? details;
+
+  const DyScanException({
+    required this.type,
+    this.message,
+    this.details,
+  });
+
+  factory DyScanException.fromPlatformException(PlatformException exception) {
+    return DyScanException(
+      type: DyScanExceptionType.fromString(exception.code),
+      message: exception.message,
+      details: exception.details,
+    );
+  }
 }
 
-class DyScanNotInitialzedException extends DyScanException {
-  DyScanNotInitialzedException()
-      : super('not_initialized',
-            'Ensure to initialize FlutterDyScan before accessing it. Please execute the init() method');
-}
+enum DyScanExceptionType {
+  notInitialized,
+  notSupported,
+  authError,
+  cameraError,
+  noPermissions,
+  userCancelled,
+  unknown;
 
-class CardScanResultException extends DyScanException {
-  CardScanResultException({required String code, required String message})
-      : super(code, message);
+  static DyScanExceptionType fromString(String type) {
+    return DyScanExceptionType.values.firstWhere(
+      (e) => e.name == type,
+      orElse: () => DyScanExceptionType.unknown,
+    );
+  }
 }

@@ -44,6 +44,13 @@ class DyScanUiSettings {
       'lightTorchWhenDark': lightTorchWhenDark,
     };
   }
+
+  static DyScanUiSettings get defaultUiSettings {
+    return const DyScanUiSettings(
+      androidUiSettings: AndroidUiSettings(),
+      iOSUiSettings: IOSUiSettings(),
+    );
+  }
 }
 
 extension ColorEx on Color {

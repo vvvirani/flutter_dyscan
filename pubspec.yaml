@@ -1,7 +1,8 @@
 name: flutter_dyscan
 description: DyScan allows users on your mobile app to add their payment information more easily.
+repository: https://github.com/vvvirani/flutter_dyscan
+issue_tracker: https://github.com/vvvirani/flutter_dyscan/issues
 version: 0.0.1
-homepage: https://github.com/Technoyuga-Tech-Team/flutter_dyscan
 
 environment:
   sdk: '>=2.19.4 <3.0.0'
