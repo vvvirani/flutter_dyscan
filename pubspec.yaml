@@ -5,7 +5,7 @@ issue_tracker: https://github.com/vvvirani/flutter_dyscan/issues
 version: 0.0.1
 
 environment:
-  sdk: '>=2.19.4 <3.0.0'
+  sdk: '>=2.19.4 <4.0.0'
   flutter: ">=2.5.0"
 
 dependencies:
