@@ -57,9 +57,9 @@ You can override this filtering by adding the below lines into your `AndroidMani
 <details>
 <summary>iOS</summary>
 
-Compatible with apps targeting iOS 12 or above.
+Compatible with apps targeting iOS 13 or above.
 
-To upgrade your iOS deployment target to `12.0`, you can either do so in Xcode under your Build Settings, or by modifying `IPHONEOS_DEPLOYMENT_TARGET` in your project.pbxproj directly.
+To upgrade your iOS deployment target to `13.0`, you can either do so in Xcode under your Build Settings, or by modifying `IPHONEOS_DEPLOYMENT_TARGET` in your project.pbxproj directly.
 
 You will also need to update in your Podfile:
 
