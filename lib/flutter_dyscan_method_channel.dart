@@ -37,4 +37,21 @@ class MethodChannelFlutterDyScan extends FlutterDyScanPlatform {
       throw DyScanException.fromPlatformException(e);
     }
   }
+
+  @override
+  Future<bool> checkCameraPermission() async {
+    bool? result = await _methodChannel.invokeMethod('checkCameraPermission');
+    return result ?? false;
+  }
+
+  @override
+  Future<bool> requestCameraPermission() async {
+    if (await checkCameraPermission()) {
+      return true;
+    } else {
+      bool? result =
+          await _methodChannel.invokeMethod('requestCameraPermission');
+      return result ?? false;
+    }
+  }
 }

@@ -1,6 +1,7 @@
 import Flutter
 import UIKit
 import DyScan
+import AVFoundation
 
 public class FlutterDyscanPlugin: NSObject, FlutterPlugin, DyScanViewControllerDelegate {
     
@@ -26,6 +27,14 @@ public class FlutterDyscanPlugin: NSObject, FlutterPlugin, DyScanViewControllerD
                 
             }
             result(false)
+            
+        } else if call.method == "checkCameraPermission" {
+            
+            checkCameraPermission()
+            
+        } else if call.method == "requestCameraPermission" {
+            
+            requestCameraPermission()
             
         } else if call.method == "startCardScan" {
             
@@ -197,6 +206,21 @@ public class FlutterDyscanPlugin: NSObject, FlutterPlugin, DyScanViewControllerD
             return .bottom
         default:
             return .bottom
+        }
+    }
+    
+    func checkCameraPermission() {
+        let status = AVCaptureDevice.authorizationStatus(for: .video)
+        if let result = self.result {
+            result(status == AVAuthorizationStatus.authorized)
+        }
+    }
+    
+    func requestCameraPermission(){
+        AVCaptureDevice.requestAccess(for: .video) { granted in
+            if let result = self.result {
+                result(granted)
+            }
         }
     }
 }

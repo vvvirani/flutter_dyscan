@@ -24,29 +24,34 @@ class _CardScanScreenState extends State<CardScanScreen> {
     try {
       await _dyScan.init(Constants.dyScanApiKey);
     } on DyScanException catch (e) {
-      _showSnackBar('${e.type}-${e.message}');
+      _showSnackBar('${e.type.name}: ${e.message}');
     }
   }
 
   Future<void> _startCardScan() async {
-    try {
-      CardScanResult result = await _dyScan.startCardScan(
-        uiSettings: const DyScanUiSettings(
-          showDynetiLogo: true,
-          showRotateButton: false,
-          iOSUiSettings: IOSUiSettings(
-            modalPresentationStyle: ModalPresentationStyle.pageSheet,
-            defaultCardNumberText: '1234 1234 1234 1234',
-            defaultExpirationDate: 'MM / YY',
-          ),
-        ),
-      );
+    bool granted = await _dyScan.requestCameraPermission();
 
-      setState(() {
-        _scanResult = result;
-      });
-    } on DyScanException catch (e) {
-      _showSnackBar('${e.type}-${e.message}');
+    if (granted) {
+      try {
+        CardScanResult result = await _dyScan.startCardScan(
+          uiSettings: const DyScanUiSettings(
+            showDynetiLogo: true,
+            showRotateButton: true,
+            vibrateOnCompletion: true,
+            iOSUiSettings: IOSUiSettings(
+              modalPresentationStyle: ModalPresentationStyle.pageSheet,
+              defaultCardNumberText: '1234 1234 1234 1234',
+              defaultExpirationDate: 'MM / YY',
+            ),
+          ),
+        );
+
+        setState(() {
+          _scanResult = result;
+        });
+      } on DyScanException catch (e) {
+        _showSnackBar('${e.type.name}: ${e.message}');
+      }
     }
   }
 
@@ -60,51 +65,38 @@ class _CardScanScreenState extends State<CardScanScreen> {
     return Scaffold(
       appBar: AppBar(title: const Text('Scan Debit/Credit Card')),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Image.asset(
-                Constants.creditCardPaymentIcon,
-                height: 130,
-                width: 130,
-                filterQuality: FilterQuality.high,
-              ),
-              const SizedBox(height: 40),
-              MaterialButton(
-                height: 50,
-                minWidth: MediaQuery.of(context).size.width * 0.6,
-                onPressed: _startCardScan,
-                elevation: 0,
-                focusElevation: 0,
-                highlightElevation: 0,
-                color: Theme.of(context).primaryColor,
-                splashColor: Colors.white.withOpacity(0.01),
-                highlightColor: Colors.white.withOpacity(0.01),
-                shape: const StadiumBorder(),
-                textColor: Colors.white,
-                child: const Text(
-                  'Start Scan',
-                  style: TextStyle(fontSize: 16),
+        padding: const EdgeInsets.all(20),
+        child: _scanResult != null
+            ? Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
                 ),
-              ),
-              if (_scanResult != null) ...[
-                const SizedBox(height: 30),
-                Card(
-                  child: Column(
-                    children: _scanResult!.toMap().entries.map((e) {
-                      return ListTile(
-                        title: Text(e.key),
-                        trailing: Text(e.value.toString()),
-                      );
-                    }).toList(),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: _scanResult!.toMap().entries.map((e) {
+                    return ListTile(
+                      title: Text(e.key),
+                      trailing: Text(e.value.toString()),
+                    );
+                  }).toList(),
+                ),
+              )
+            : const Center(
+                child: Text(
+                  'Start Scan',
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-              ],
-            ],
-          ),
-        ),
+              ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _startCardScan,
+        elevation: 0,
+        highlightElevation: 0,
+        splashColor: Colors.white.withOpacity(0.01),
+        child: const Icon(Icons.document_scanner_outlined),
       ),
     );
   }

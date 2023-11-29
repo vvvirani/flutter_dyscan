@@ -22,7 +22,7 @@ class HelperTextUiSettings {
     return <String, dynamic>{
       'showHelperText': showHelperText,
       'helperTextPosition': helperTextPosition.name,
-      'helperTextFontSize': helperTextFontSize.toString(),
+      'helperTextFontSize': helperTextFontSize?.toString(),
       'helperTextString': helperTextString,
       'helperTextFontFamily': helperTextFontFamily,
       'helperTextColor': helperTextColor?.toHex(),

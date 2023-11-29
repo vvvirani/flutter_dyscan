@@ -27,4 +27,8 @@ abstract class FlutterDyScanPlatform extends PlatformInterface {
   Future<void> init(String apiKey);
 
   Future<CardScanResult> startCardScan({DyScanUiSettings? uiSettings});
+
+  Future<bool> requestCameraPermission();
+
+  Future<bool> checkCameraPermission();
 }

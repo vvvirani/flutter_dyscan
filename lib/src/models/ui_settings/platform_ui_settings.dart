@@ -1,22 +1,5 @@
 enum ModalPresentationStyle { pageSheet, fullScreen, automatic }
 
-class AndroidUiSettings {
-  final bool showCardOverlay;
-  final bool showResultOverlay;
-
-  const AndroidUiSettings({
-    this.showCardOverlay = true,
-    this.showResultOverlay = false,
-  });
-
-  Map<String, dynamic> asMap() {
-    return <String, dynamic>{
-      'showCardOverlay': showCardOverlay,
-      'showResultOverlay': showResultOverlay,
-    };
-  }
-}
-
 class IOSUiSettings {
   final ModalPresentationStyle modalPresentationStyle;
   final String? language;

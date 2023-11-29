@@ -8,7 +8,6 @@ export 'ui_settings/corner_ui_settings.dart';
 class DyScanUiSettings {
   final HelperTextUiSettings helperTextUiSettings;
   final CornerUiSettings cornerUiSettings;
-  final AndroidUiSettings androidUiSettings;
   final IOSUiSettings iOSUiSettings;
   final Color? bgColor;
   final double? bgOpacity;
@@ -18,7 +17,6 @@ class DyScanUiSettings {
   final bool lightTorchWhenDark;
 
   const DyScanUiSettings({
-    this.androidUiSettings = const AndroidUiSettings(),
     this.iOSUiSettings = const IOSUiSettings(),
     this.helperTextUiSettings = const HelperTextUiSettings(),
     this.cornerUiSettings = const CornerUiSettings(),
@@ -34,7 +32,6 @@ class DyScanUiSettings {
     return <String, dynamic>{
       ...helperTextUiSettings.asMap(),
       ...cornerUiSettings.asMap(),
-      ...androidUiSettings.asMap(),
       ...iOSUiSettings.asMap(),
       'bgColor': bgColor?.toHex(),
       'bgOpacity': bgOpacity?.toString(),
@@ -46,10 +43,7 @@ class DyScanUiSettings {
   }
 
   static DyScanUiSettings get defaultUiSettings {
-    return const DyScanUiSettings(
-      androidUiSettings: AndroidUiSettings(),
-      iOSUiSettings: IOSUiSettings(),
-    );
+    return const DyScanUiSettings(iOSUiSettings: IOSUiSettings());
   }
 }
 

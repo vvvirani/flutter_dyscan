@@ -100,6 +100,7 @@ The library offers several methods to handle DyScan related actions:
 
 ```dart
 Future<void> init(...);
+Future<bool> requestCameraPermission(...);
 Future<CardScanResult> startCardScan(...);
 ```
 

@@ -23,8 +23,8 @@ if (flutterVersionName == null) {
 }
 
 android {
-    namespace "com.vvvirani.dyscan_example"
-    compileSdkVersion flutter.compileSdkVersion
+    namespace "com.example.dyscan_example"
+    compileSdkVersion 33
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -41,7 +41,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.vvvirani.dyscan_example"
+        applicationId "com.example.dyscan_example"
         minSdkVersion 21
         targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
