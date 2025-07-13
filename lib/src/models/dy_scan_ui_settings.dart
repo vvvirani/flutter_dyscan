@@ -49,6 +49,6 @@ class DyScanUiSettings {
 
 extension ColorEx on Color {
   String toHex() {
-    return '#${value.toRadixString(16).padLeft(8, '0').toUpperCase()}';
+    return '#${toARGB32().toRadixString(16).padLeft(8, '0').toUpperCase()}';
   }
 }

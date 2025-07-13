@@ -95,7 +95,7 @@ class _CardScanScreenState extends State<CardScanScreen> {
         onPressed: _startCardScan,
         elevation: 0,
         highlightElevation: 0,
-        splashColor: Colors.white.withOpacity(0.01),
+        splashColor: Colors.white.withValues(alpha: 0.01),
         child: const Icon(Icons.document_scanner_outlined),
       ),
     );
