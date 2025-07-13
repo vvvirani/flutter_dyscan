@@ -1,0 +1,2 @@
+/Users/vishalvirani/Documents/packages/flutter_dyscan/dyscan_example/android/app/.cxx/RelWithDebInfo/4a2d431p/armeabi-v7a/CMakeFiles/edit_cache.dir
+/Users/vishalvirani/Documents/packages/flutter_dyscan/dyscan_example/android/app/.cxx/RelWithDebInfo/4a2d431p/armeabi-v7a/CMakeFiles/rebuild_cache.dir
